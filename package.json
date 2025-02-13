@@ -2,6 +2,17 @@
   "name": "css-charts",
   "version": "0.0.0",
   "description": "",
+  "dependencies": {
+    "trans-render": "0.0.884",
+    "charts.css": "1.1.0"
+  },
+  "scripts": {
+    "doc": "node doc.js",
+    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
+    "test": "playwright test",
+    "safari": "npx playwright wk http://localhost:8000",
+    "update": "ncu -u && npm install"
+  },
   "homepage": "https://github.com/bahrus/css-charts#readme",
   "bugs": {
     "url": "https://github.com/bahrus/css-charts/issues"
@@ -13,8 +24,6 @@
   "license": "MIT",
   "author": "",
   "type": "commonjs",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  "main": "index.js"
+
 }
