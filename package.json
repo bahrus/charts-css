@@ -1,14 +1,14 @@
 {
-  "name": "charts-css",
+  "name": "css-charts",
   "version": "0.0.0",
   "description": "",
-  "homepage": "https://github.com/bahrus/charts-css#readme",
+  "homepage": "https://github.com/bahrus/css-charts#readme",
   "bugs": {
-    "url": "https://github.com/bahrus/charts-css/issues"
+    "url": "https://github.com/bahrus/css-charts/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bahrus/charts-css.git"
+    "url": "git+https://github.com/bahrus/css-charts.git"
   },
   "license": "MIT",
   "author": "",
