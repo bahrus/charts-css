@@ -54,6 +54,8 @@ export const config = {
     },
     propInfo: {
         ...MntCfgMxn.propInfo,
+        slot: {},
+        slotChangeCount:{def: 0}
     },
     actions:{
         ...MntCfgMxn.actions,
