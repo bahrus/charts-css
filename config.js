@@ -12,6 +12,7 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
+
     <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
     <caption> Bar Example #13 </caption>
     <thead>
@@ -46,7 +47,11 @@ export const config = {
     `,
     xform:{
         slot: {
-            a: 'handleSlotChange'
+            m: [
+                {on: 'load', s: '$slot', toValFrom: '.'},
+                {on: 'load', s: 'slotChangeCount', to: 1},
+                {on: 'slotchange', inc: 'slotChangeCount', byAmt: 1},
+            ]
         }
     },
     propDefaults: {
@@ -54,11 +59,15 @@ export const config = {
     },
     propInfo: {
         ...MntCfgMxn.propInfo,
-        slot: {},
+        data: {},
+        $slot: {},
         slotChangeCount:{def: 0}
     },
     actions:{
         ...MntCfgMxn.actions,
+        extractData: {
+          ifAllOf: ['slotChangeCount', '$slot']
+        }
     },
     styles: String.raw `
     <style>
