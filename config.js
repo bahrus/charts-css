@@ -12,6 +12,37 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot></slot>
+    <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
+    <caption> Bar Example #13 </caption>
+    <thead>
+      <tr>
+        <th scope="col"> Year </th>
+        <th scope="col"> Progress </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row"> 2016 </th>
+        <td style="--size: 0.2;"></td>
+      </tr>
+      <tr>
+        <th scope="row"> 2017 </th>
+        <td style="--size: 0.4;"></td>
+      </tr>
+      <tr>
+        <th scope="row"> 2018 </th>
+        <td style="--size: 0.6;"></td>
+      </tr>
+      <tr>
+        <th scope="row"> 2019 </th>
+        <td style="--size: 0.8;"></td>
+      </tr>
+      <tr>
+        <th scope="row"> 2020 </th>
+        <td style="--size: 1;"></td>
+      </tr>
+    </tbody>
+  </table>
     `,
     xform:{
 

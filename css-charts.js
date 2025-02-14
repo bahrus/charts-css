@@ -17,3 +17,7 @@ export class CSSCharts extends Mount {
     static config = config;
 
 }
+
+await CSSCharts.bootUp();
+
+customElements.define('css-charts', CSSCharts);
