@@ -7,4 +7,8 @@ import {MntCfgMxn} from 'trans-render/MntCfgMxn.js';
  * @type {MntCfg<AllProps & MountProps, Actions & MountActions>}
  */
 export const config = {
+    shadowRootInit:{
+        mode: 'open'
+    },
+    mainTemplate: String.raw ``
 }
