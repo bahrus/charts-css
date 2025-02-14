@@ -16,6 +16,15 @@ export class CSSCharts extends Mount {
      */
     static config = config;
 
+    /**
+     * 
+     * @param {AllProps} self 
+     * @param {Event} evt 
+     */
+    handleSlotChange(evt, self){
+        console.log({self, evt});
+    }
+
 }
 
 await CSSCharts.bootUp();

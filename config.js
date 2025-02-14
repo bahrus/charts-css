@@ -11,7 +11,7 @@ export const config = {
         mode: 'open'
     },
     mainTemplate: String.raw `
-        <slot></slot>
+        <slot style="display:none;"></slot>
     <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
     <caption> Bar Example #13 </caption>
     <thead>
@@ -45,7 +45,9 @@ export const config = {
   </table>
     `,
     xform:{
-
+        slot: {
+            a: 'handleSlotChange'
+        }
     },
     propDefaults: {
 
