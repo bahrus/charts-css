@@ -29,11 +29,11 @@ export class CSSCharts extends Mount {
         for(const assignedElement of assignedElements){
             if(!(assignedElement instanceof HTMLTableElement)) continue;
             
-            const itemScopes = assignedElement.querySelectorAll('itemscope');
-            for(const row of itemScopes){
+            const itemScopes = assignedElement.querySelectorAll('[itemscope]');
+            for(const itemScope of itemScopes){
                 const item = {
-                    key: row.querySelector('[itemprop="key"]')?.textContent?.trim() ?? '',
-                    value: Number( /** @type {HTMLDataElement} **/(row.querySelector('data[itemprop="value"]'))?.value),
+                    key: itemScope.querySelector('[itemprop="key"]')?.textContent?.trim() ?? '',
+                    value: Number( /** @type {HTMLDataElement} **/(itemScope.querySelector('data[itemprop="value"]'))?.value),
                 };
                 data.push(item);
             }
