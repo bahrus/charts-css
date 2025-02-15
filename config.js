@@ -12,7 +12,7 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
-
+    <div id=table-target></div>
     <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
     <caption> Bar Example #13 </caption>
     <thead>
@@ -67,7 +67,10 @@ export const config = {
         ...MntCfgMxn.actions,
         extractData: {
           ifAllOf: ['slotChangeCount', '$slot']
-        }
+        },
+        buildTable: {
+            ifAllOf: ['data']
+        },
     },
     styles: String.raw `
     <style>

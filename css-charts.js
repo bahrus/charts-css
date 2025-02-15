@@ -32,14 +32,51 @@ export class CSSCharts extends Mount {
             const rows = assignedElement.querySelectorAll('tbody>tr');
             for(const row of rows){
                 const item = {
-                    [row.querySelector('th')?.textContent?.trim() ?? '']: Number(row.querySelector('data')?.value)
-                }
+                    key: row.querySelector('th')?.textContent?.trim() ?? '',
+                    value: Number(row.querySelector('data')?.value),
+                };
                 data.push(item);
             }
         }
         console.log({assignedElements});
         return /** @type {PAP} */ ({
             data
+        })
+    }
+
+    /**
+     * @param {AllProps} self
+     * @returns 
+     */
+    buildTable(self){
+        const {data} = self;
+        const max = Math.max(...data.map(item => Object.values(item)[0]));
+        const html = String.raw `
+<table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
+    <caption> Bar Example #13 </caption>
+    <thead>
+      <tr>
+        <th scope="col"> Year </th>
+        <th scope="col"> Progress </th>
+      </tr>
+    </thead>
+    <tbody>
+        ${data.map(item => 
+            String.raw `
+            <tr>
+                <th scope="row"> ${item.key} </th>
+                <td class="bar" style="--size: ${item.value / max};"></td>
+            </tr>
+            `
+        ).join('')}
+    </tbody>
+</table>
+        `;
+        const target = this.shadowRoot?.querySelector('#table-target');
+        if(!target) return ({});
+        target.innerHTML = html;
+        return /** @type {PAP} */ ({
+
         })
     }
 
