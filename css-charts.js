@@ -22,23 +22,16 @@ export class CSSCharts extends Mount {
      * @param {AllProps} self 
      * @returns 
      */
-    extractData(self){
+    async extractData(self){
         const {$slot} = self;
-        const assignedElements = $slot.assignedElements();
+        const assignedElements = $slot.assignedElements().filter(x => x instanceof HTMLTableElement);
         const data = [];
+        const {fromList} = await import('trans-render/asmr/extractData/fromList.js');
         for(const assignedElement of assignedElements){
-            if(!(assignedElement instanceof HTMLTableElement)) continue;
-            
-            const itemScopes = assignedElement.querySelectorAll('[itemscope]');
-            for(const itemScope of itemScopes){
-                const item = {
-                    key: itemScope.querySelector('[itemprop="key"]')?.textContent?.trim() ?? '',
-                    value: Number( /** @type {HTMLDataElement} **/(itemScope.querySelector('data[itemprop="value"]'))?.value),
-                };
-                data.push(item);
-            }
+            const items = await fromList(assignedElement, ['key', 'value'])
+            data.push(...items);
         }
-        console.log({assignedElements});
+        console.log({data});
         return /** @type {PAP} */ ({
             data
         })
