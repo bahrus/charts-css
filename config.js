@@ -12,6 +12,14 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
+        <table itemscope itemprop=data>
+            <template blow-dry>
+              <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
+                <td itemprop=key></td>
+                <td itemprop=value></td>
+              </tr>
+            </template>
+        </table>
         <div id=table-target></div>
     `,
     xform:{
@@ -21,7 +29,17 @@ export const config = {
                 {on: 'load', s: 'slotChangeCount', to: 1},
                 {on: 'slotchange', inc: 'slotChangeCount', byAmt: 1},
             ]
+        },
+        '$ data': {
+          f: {
+            wi: 'node',
+            xform: {
+              '| key': 0,
+              '| value': 0,
+            }
+          }
         }
+
     },
     propDefaults: {
 
