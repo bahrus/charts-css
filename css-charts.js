@@ -47,13 +47,6 @@ export class CSSCharts extends Mount {
         console.log({max});
         const html = String.raw `
 <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
-    <caption> Bar Example #13 </caption>
-    <thead>
-      <tr>
-        <th scope="col"> Year </th>
-        <th scope="col"> Progress </th>
-      </tr>
-    </thead>
     <tbody>
         ${data.map(item => 
             String.raw `
