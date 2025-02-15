@@ -50,7 +50,8 @@ export class CSSCharts extends Mount {
      */
     buildTable(self){
         const {data} = self;
-        const max = Math.max(...data.map(item => Object.values(item)[0]));
+        const max = Math.max(...data.map(item => item.value));
+        console.log({max});
         const html = String.raw `
 <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
     <caption> Bar Example #13 </caption>
