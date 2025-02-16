@@ -12,7 +12,7 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
-        <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
+        <table itemprop=chartType class="charts-css show-labels show-primary-axis show-data-axes data-spacing-10">
           <tbody itemscope  itemprop=data>
             <template blow-dry>
               <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
@@ -32,6 +32,10 @@ export const config = {
                 {on: 'slotchange', inc: 'slotChangeCount', byAmt: 1},
             ]
         },
+        'table': [
+          {sa: '.bar', o: 'isBar', d: 0},
+          {sa: '.pie', o: 'isPie', d: 0}
+        ],
         '$ data': {
           f: {
             wi: 'node',
@@ -53,13 +57,25 @@ export const config = {
         ...MntCfgMxn.propInfo,
         data: {},
         $slot: {},
-        slotChangeCount:{def: 0}
+        slotChangeCount:{def: 0},
+        chartType: {
+          attrName: 'chart-type',
+          type: 'String',
+          parse: true,
+          def: 'bar'
+        },
+        isBar: {},
+        isPie: {},
     },
     actions:{
         ...MntCfgMxn.actions,
         extractData: {
-          ifAllOf: ['slotChangeCount', '$slot']
+          ifAllOf: ['slotChangeCount', '$slot'],
+          ifAtLeastOneOf: ['isBar', 'isPie']
         },
+        classify: {
+          ifAllOf: ['chartType']
+        }
     },
     styles: String.raw `
     <style>

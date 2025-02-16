@@ -42,7 +42,17 @@ export class CSSCharts extends Mount {
         });
     }
 
-
+    /**
+     * 
+     * @param {AllProps} self 
+     */
+    classify(self){
+        const {chartType} = self;
+        return /** @type {PAP} */ ({
+            isBar: chartType === 'bar',
+            isPie: chartType === 'pie'
+        })
+    }
 }
 
 await CSSCharts.bootUp();
