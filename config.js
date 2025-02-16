@@ -12,12 +12,12 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
-        <table itemscope itemprop=data class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
-          <tbody>
+        <table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
+          <tbody itemscope  itemprop=data>
             <template blow-dry>
               <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
                 <th scope=row itemprop=key></th>
-                <td class=bar itemprop=value></td>
+                <td class=bar itemprop=scaledVal></td>
               </tr>
             </template>
           </tbody>
@@ -37,9 +37,9 @@ export const config = {
             wi: 'node',
             xform: {
               '| key': 0,
-              '| value': {
+              '| scaledVal': {
                 ss: '--size',
-                o: 'value'
+                //o: 'scaledVal'
               },
             }
           }
