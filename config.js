@@ -12,13 +12,15 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
-        <table itemscope itemprop=data>
+        <table itemscope itemprop=data class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
+          <tbody>
             <template blow-dry>
               <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
-                <td itemprop=key></td>
-                <td itemprop=value></td>
+                <th scope=row itemprop=key></th>
+                <td class=bar itemprop=value></td>
               </tr>
             </template>
+          </tbody>
         </table>
         <div id=table-target></div>
     `,
@@ -35,7 +37,10 @@ export const config = {
             wi: 'node',
             xform: {
               '| key': 0,
-              '| value': 0,
+              '| value': {
+                ss: '--size',
+                o: 'value'
+              },
             }
           }
         }
