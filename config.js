@@ -60,9 +60,6 @@ export const config = {
         extractData: {
           ifAllOf: ['slotChangeCount', '$slot']
         },
-        // buildTable: {
-        //     ifAllOf: ['data']
-        // },
     },
     styles: String.raw `
     <style>

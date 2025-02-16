@@ -39,38 +39,9 @@ export class CSSCharts extends Mount {
         console.log({data});
         return /** @type {PAP} */ ({
             data
-        })
+        });
     }
 
-    /**
-     * @param {AllProps} self
-     * @returns 
-     */
-    buildTable(self){
-        const {data} = self;
-        //const max = Math.max(...data.map(item => item.value));
-        //console.log({max});
-        const html = String.raw `
-<table class="charts-css bar show-labels show-primary-axis show-data-axes data-spacing-10">
-    <tbody>
-        ${data.map(item => 
-            String.raw `
-            <tr>
-                <th scope="row"> ${item.key} </th>
-                <td class="bar" style="--size: ${item.scaledVal};"></td>
-            </tr>
-            `
-        ).join('')}
-    </tbody>
-</table>
-        `;
-        const target = this.shadowRoot?.querySelector('#table-target');
-        if(!target) return ({});
-        target.innerHTML = html;
-        return /** @type {PAP} */ ({
-
-        })
-    }
 
 }
 
