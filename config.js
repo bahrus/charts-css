@@ -12,7 +12,7 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
-        <table itemprop=chartType class="charts-css show-labels show-primary-axis show-data-axes data-spacing-10">
+        <table itemprop=chartType class="charts-css data-spacing-10">
           <tbody itemscope  itemprop=data>
             <template blow-dry>
               <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
@@ -34,7 +34,10 @@ export const config = {
         },
         'table': [
           {sa: '.bar', o: 'isBar', d: 0},
-          {sa: '.pie', o: 'isPie', d: 0}
+          {sa: '.pie', o: 'isPie', d: 0},
+          {sa: '.show-labels', o: 'showLabels', d: 0},
+          {sa: '.show-primary-axis', o:'showPrimaryAxis', d: 0},
+          {sa: '.show-data-axes', o: 'showDataAxes', d: 0},
         ],
         '$ data': {
           f: {
@@ -66,6 +69,21 @@ export const config = {
         },
         isBar: {},
         isPie: {},
+        showLabels: {
+          type: 'Boolean',
+          attrName: 'show-labels',
+          parse: true
+        },
+        showPrimaryAxis: {
+          type: 'Boolean',
+          attrName: 'show-primary-axis',
+          parse: true
+        },
+        showDataAxes: {
+          type: 'Boolean',
+          attrName: 'show-data-axes',
+          parse: true,
+        }
     },
     actions:{
         ...MntCfgMxn.actions,
