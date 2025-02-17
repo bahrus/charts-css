@@ -37,6 +37,7 @@ export class CSSCharts extends Mount {
         const max = Math.max(...data.map(item => item.value));
         switch(chartType){
             case 'bar':
+            case 'column':
                 data.forEach(x => x.scaledVal = x.value / max);
                 break;
             case 'pie':
@@ -64,7 +65,8 @@ export class CSSCharts extends Mount {
         const {chartType} = self;
         return /** @type {PAP} */ ({
             isBar: chartType === 'bar',
-            isPie: chartType === 'pie'
+            isPie: chartType === 'pie',
+            isColumn: chartType === 'column'
         })
     }
 }
