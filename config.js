@@ -38,6 +38,8 @@ export const config = {
           {sa: '.show-labels', o: 'showLabels', d: 0},
           {sa: '.show-primary-axis', o:'showPrimaryAxis', d: 0},
           {sa: '.show-data-axes', o: 'showDataAxes', d: 0},
+          {sa: '.hide-data', o: 'hideData', d: 0},
+          {sa: '.show-2-secondary-axes', o: 'show2SecondaryAxes', d: 0}
         ],
         '$ data': {
           f: {
@@ -82,6 +84,16 @@ export const config = {
         showDataAxes: {
           type: 'Boolean',
           attrName: 'show-data-axes',
+          parse: true,
+        },
+        hideData: {
+          type: 'Boolean',
+          attrName: 'hide-data',
+          parse: true,
+        },
+        show2SecondaryAxes: {
+          type: 'Boolean',
+          attrName: 'show-2-secondary-axes',
           parse: true,
         }
     },
