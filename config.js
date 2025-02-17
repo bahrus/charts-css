@@ -33,6 +33,7 @@ export const config = {
             ]
         },
         'table': [
+          {sa: '.area', o: 'isArea', d: 0},
           {sa: '.bar', o: 'isBar', d: 0},
           {sa: '.pie', o: 'isPie', d: 0},
           {sa: '.column', o: 'isColumn', d: 0},
@@ -79,6 +80,7 @@ export const config = {
           parse: true,
           def: 'bar'
         },
+        isArea: {},
         isBar: {},
         isColumn: {},
         isPie: {},
@@ -112,7 +114,7 @@ export const config = {
         ...MntCfgMxn.actions,
         extractData: {
           ifAllOf: ['slotChangeCount', '$slot'],
-          ifAtLeastOneOf: ['isBar', 'isPie', 'isColumn']
+          ifAtLeastOneOf: ['isArea', 'isBar', 'isPie', 'isColumn']
         },
         classify: {
           ifAllOf: ['chartType']
