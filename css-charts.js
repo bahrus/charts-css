@@ -23,7 +23,7 @@ export class CSSCharts extends Mount {
      * @returns 
      */
     async extractData(self){
-        const {$slot} = self;
+        const {$slot, chartType} = self;
         const assignedElements = $slot.assignedElements().filter(x => x instanceof HTMLTableElement);
         /**
          * @type {Array<DataItem>}
@@ -35,7 +35,21 @@ export class CSSCharts extends Mount {
             data.push(...items);
         }
         const max = Math.max(...data.map(item => item.value));
-        data.forEach(x => x.scaledVal = x.value / max);
+        switch(chartType){
+            case 'bar':
+                data.forEach(x => x.scaledVal = x.value / max);
+                break;
+            case 'pie':
+                let start = 0;
+                for(const item of data){
+                    const end = start + item.value / max;
+                    item.start = start;
+                    item.end = end;
+                    start = end;
+                }
+                break;
+        }
+        
         console.log({data});
         return /** @type {PAP} */ ({
             data
