@@ -33,16 +33,16 @@ export const config = {
             ]
         },
         'table': [
-          {sa: '.area', o: 'isArea', d: 0},
-          {sa: '.bar', o: 'isBar', d: 0},
-          {sa: '.column', o: 'isColumn', d: 0},
-          {sa: '.line', o: 'isLine', d: 0},
-          {sa: '.pie', o: 'isPie', d: 0},
-          {sa: '.show-labels', o: 'showLabels', d: 0},
-          {sa: '.show-primary-axis', o:'showPrimaryAxis', d: 0},
-          {sa: '.show-data-axes', o: 'showDataAxes', d: 0},
-          {sa: '.hide-data', o: 'hideData', d: 0},
-          {sa: '.show-2-secondary-axes', o: 'show2SecondaryAxes', d: 0}
+          {sa: '.area', o: 'isArea'},
+          {sa: '.bar', o: 'isBar'},
+          {sa: '.column', o: 'isColumn'},
+          {sa: '.line', o: 'isLine'},
+          {sa: '.pie', o: 'isPie'},
+          {sa: '.show-labels', o: 'showLabels'},
+          {sa: '.show-primary-axis', o:'showPrimaryAxis'},
+          {sa: '.show-data-axes', o: 'showDataAxes'},
+          {sa: '.hide-data', o: 'hideData'},
+          {sa: '.show-2-secondary-axes', o: 'show2SecondaryAxes'}
         ],
         '$ data': {
           f: {
