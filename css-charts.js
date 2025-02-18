@@ -41,6 +41,7 @@ export class CSSCharts extends Mount {
                 data.forEach(x => x.scaledVal = x.value / max);
                 break;
             case 'area':
+            case 'line':
             case 'pie':
                 let start = 0;
                 for(const item of data){
@@ -67,9 +68,10 @@ export class CSSCharts extends Mount {
         return /** @type {PAP} */ ({
             isArea: chartType === 'area',
             isBar: chartType === 'bar',
+            isColumn: chartType === 'column',
+            isLine: chartType === 'line',
             isPie: chartType === 'pie',
-            isColumn: chartType === 'column'
-        })
+        });
     }
 }
 

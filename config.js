@@ -35,8 +35,9 @@ export const config = {
         'table': [
           {sa: '.area', o: 'isArea', d: 0},
           {sa: '.bar', o: 'isBar', d: 0},
-          {sa: '.pie', o: 'isPie', d: 0},
           {sa: '.column', o: 'isColumn', d: 0},
+          {sa: '.line', o: 'isLine', d: 0},
+          {sa: '.pie', o: 'isPie', d: 0},
           {sa: '.show-labels', o: 'showLabels', d: 0},
           {sa: '.show-primary-axis', o:'showPrimaryAxis', d: 0},
           {sa: '.show-data-axes', o: 'showDataAxes', d: 0},
@@ -114,7 +115,7 @@ export const config = {
         ...MntCfgMxn.actions,
         extractData: {
           ifAllOf: ['slotChangeCount', '$slot'],
-          ifAtLeastOneOf: ['isArea', 'isBar', 'isPie', 'isColumn']
+          ifAtLeastOneOf: ['isArea', 'isBar', 'isLine', 'isPie', 'isColumn']
         },
         classify: {
           ifAllOf: ['chartType']
