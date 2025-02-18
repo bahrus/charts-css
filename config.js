@@ -84,6 +84,7 @@ export const config = {
         isArea: {},
         isBar: {},
         isColumn: {},
+        isLine: {},
         isPie: {},
         showLabels: {
           type: 'Boolean',
