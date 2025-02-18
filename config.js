@@ -15,7 +15,7 @@ export const config = {
         <table class="charts-css data-spacing-10">
           <tbody itemscope  itemprop=data>
             <template blow-dry>
-              <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
+              <tr itemscope>
                 <th scope=row itemprop=key></th>
                 <td -o="scaledVal start end"></td>
               </tr>
