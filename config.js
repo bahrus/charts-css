@@ -12,7 +12,7 @@ export const config = {
     },
     mainTemplate: String.raw `
         <slot style="display:none;"></slot>
-        <table itemprop=chartType class="charts-css data-spacing-10">
+        <table class="charts-css data-spacing-10">
           <tbody itemscope  itemprop=data>
             <template blow-dry>
               <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
