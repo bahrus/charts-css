@@ -17,7 +17,7 @@ export const config = {
             <template blow-dry>
               <tr itemscope itemprop=itemListElement itemtype=https://schema.org/ListItem>
                 <th scope=row itemprop=key></th>
-                <td -o="scaledVal" itemprop="start end"></td>
+                <td -o="scaledVal start end"></td>
               </tr>
             </template>
           </tbody>
@@ -53,11 +53,11 @@ export const config = {
                 ss: '--size',
                 d: 0
               },
-              '| start': {
+              '-o start': {
                 ss: '--start',
                 d: 0
               },
-              '| end': {
+              '-o end': {
                 ss: '--end',
                 d: 0,
               }
