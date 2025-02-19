@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "dependencies": {
-    "trans-render": "0.0.884",
+    "trans-render": "0.0.885",
     "charts.css": "1.1.0"
   },
   "devDependencies": {

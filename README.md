@@ -1,5 +1,7 @@
 # css-charts
 
+The [charts.css](https://chartscss.org/) is an appealing, innovative way to display charts
+
 ```html
 <css-charts>
     <table>
