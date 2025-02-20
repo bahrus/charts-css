@@ -1,5 +1,6 @@
 {
   "name": "css-charts",
+  "type": "module",
   "version": "0.0.0",
   "description": "",
   "dependencies": {
@@ -28,7 +29,6 @@
   },
   "license": "MIT",
   "author": "",
-  "type": "commonjs",
   "main": "index.js"
 
 }

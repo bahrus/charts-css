@@ -31,7 +31,7 @@ export class CSSCharts extends Mount {
         const data = [];
         const {fromList} = await import('trans-render/asmr/extractData/fromList.js');
         for(const assignedElement of assignedElements){
-            const items = await fromList(assignedElement, ['key', 'value'])
+            const items = fromList(assignedElement, ['key', 'value'])
             data.push(...items);
         }
         const max = Math.max(...data.map(item => item.value));
