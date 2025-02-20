@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.50.1",
-    "may-it-be": "0.0.180",
+    "may-it-be": "0.0.181",
     "ssi-server": "0.0.1"
   },
   "scripts": {
