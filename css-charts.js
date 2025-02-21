@@ -10,7 +10,7 @@ import {config} from './config.js';
 /**
  * @implements {Actions}
  */
-export class CSSCharts extends Mount {
+class CSSCharts extends Mount {
 
     /**
      * @type {MntCfg<AllProps  & MountProps, Actions & MountActions>}
@@ -77,4 +77,5 @@ export class CSSCharts extends Mount {
 
 await CSSCharts.bootUp();
 
-customElements.define('css-charts', CSSCharts);
+export {CSSCharts};
+
