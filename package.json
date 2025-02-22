@@ -2,11 +2,19 @@
   "name": "css-charts",
   "type": "module",
   "version": "0.0.1",
-  "description": "",
+  "description": "Custom Element wrapper around charts.css",
   "dependencies": {
     "trans-render": "0.0.885",
     "charts.css": "1.1.0"
   },
+  "exports": {
+    ".": "./css-charts.js",
+    "./config.js": "./config.js",
+    "./def.js": "./def.js"
+  },
+  "files": [
+    "*.js"
+  ],
   "devDependencies": {
     "@playwright/test": "1.50.1",
     "may-it-be": "0.0.181",
