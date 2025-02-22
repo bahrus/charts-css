@@ -9,6 +9,7 @@
   },
   "exports": {
     ".": "./css-charts.js",
+    "./css-charts.js": "./css-charts.js",
     "./config.js": "./config.js",
     "./def.js": "./def.js"
   },
