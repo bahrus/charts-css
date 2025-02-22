@@ -28,11 +28,12 @@ class CSSCharts extends Mount {
         /**
          * @type {Array<DataItem>}
          */
-        const data = [];
+        let data = [];
         const {fromList} = await import('trans-render/asmr/extractData/fromList.js');
         for(const assignedElement of assignedElements){
-            const items = fromList(assignedElement, ['key', 'value'])
-            data.push(...items);
+
+            const items = /** @type {Array<DataItem>} */ (fromList(assignedElement, ['key', 'value']));
+            data = [...data, ...items];
         }
         const max = Math.max(...data.map(item => item.value));
         switch(chartType){
