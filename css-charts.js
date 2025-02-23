@@ -35,24 +35,27 @@ class CSSCharts extends Mount {
             const items = /** @type {Array<DataItem>} */ (fromList(assignedElement, ['key', 'value']));
             data = [...data, ...items];
         }
-        const max = Math.max(...data.map(item => item.value));
+        
         switch(chartType){
             case 'bar':
             case 'column':
+                const max = Math.max(...data.map(item => item.value));
                 data.forEach(x => x.scaledVal = x.value / max);
                 break;
             case 'area':
             case 'line':
+                throw 'Not implemented';
             case 'pie':
                 //TODO logic might not be correct for area, line
+                const sum = data.reduce((acc, item) => acc + item.value, 0);
+                console.log({sum});
                 let start = 0;
-                let last = 0;
                 for(const item of data){
                     item.start = start;
-                    const end = start + (item.value -  last) / max;
+                    const end = start + item.value / sum;
                     item.end = end;
                     start = end;
-                    last = item.value;
+                    //last = item.value;
                 }
                 break;
         }
