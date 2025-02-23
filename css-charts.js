@@ -44,12 +44,15 @@ class CSSCharts extends Mount {
             case 'area':
             case 'line':
             case 'pie':
+                //TODO logic might not be correct for area, line
                 let start = 0;
+                let last = 0;
                 for(const item of data){
-                    const end = start + item.value / max;
                     item.start = start;
+                    const end = start + (item.value -  last) / max;
                     item.end = end;
                     start = end;
+                    last = item.value;
                 }
                 break;
         }
