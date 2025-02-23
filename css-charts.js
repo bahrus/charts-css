@@ -43,6 +43,7 @@ class CSSCharts extends Mount {
                 data.forEach(x => x.scaledVal = x.value / max);
             }
                 break;
+            case 'line':
             case 'area':{
                 let last = 0;
                 const max = Math.max(...data.map(item => item.value));
@@ -55,11 +56,8 @@ class CSSCharts extends Mount {
                         item.end = data[idx + 1].value / max;
                     }
                 }
-            }
-                
                 break;
-            case 'line':
-                throw 'Not implemented';
+            }
             case 'pie':
                 //TODO logic might not be correct for area, line
                 const sum = data.reduce((acc, item) => acc + item.value, 0);
