@@ -38,11 +38,26 @@ class CSSCharts extends Mount {
         
         switch(chartType){
             case 'bar':
-            case 'column':
+            case 'column':{
                 const max = Math.max(...data.map(item => item.value));
                 data.forEach(x => x.scaledVal = x.value / max);
+            }
                 break;
-            case 'area':
+            case 'area':{
+                let last = 0;
+                const max = Math.max(...data.map(item => item.value));
+                for(const [idx, item] of data.entries()){
+                    item.start = item.value / max;
+                    if(idx === data.length - 1){
+                        item.end = 1;
+                    }
+                    else{
+                        item.end = data[idx + 1].value / max;
+                    }
+                }
+            }
+                
+                break;
             case 'line':
                 throw 'Not implemented';
             case 'pie':
