@@ -10,6 +10,7 @@ export const config = {
     shadowRootInit:{
         mode: 'open'
     },
+    //appendOnClone: true,
     mainTemplate: String.raw `
       <main>
         <slot></slot>
