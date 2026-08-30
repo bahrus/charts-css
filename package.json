@@ -3,30 +3,39 @@
   "type": "module",
   "version": "0.0.5",
   "description": "Custom Element wrapper around charts.css",
-  "dependencies": {
-    "trans-render": "0.0.886",
-    "charts.css": "1.1.0"
-  },
+  "main": "el-maker.json",
+  "module": "el-maker.json",
+  "types": "./types.d.ts",
   "exports": {
-    ".": "./css-charts.js",
-    "./css-charts.js": "./css-charts.js",
-    "./config.js": "./config.js",
-    "./def.js": "./def.js"
+    ".": "./el-maker.json",
+    "./el-maker.json": "./el-maker.json",
+    "./root.html": "./root.html"
   },
   "files": [
-    "*.js"
+    "*.*",
+    "./ts-refs/wc-info/**/*"
   ],
-  "devDependencies": {
-    "@playwright/test": "1.50.1",
-    "may-it-be": "0.0.181",
-    "ssi-server": "0.0.1"
-  },
   "scripts": {
-    "doc": "node doc.js",
-    "serve": "python3 ./node_modules/ssi-server/ssi_server.py",
+    "serve": "node ./node_modules/spa-ssi/serve.js",
     "test": "playwright test",
+    "build-el-maker": "node --watch el-maker.mjs",
+    "build-manifest": "node doc.mjs > custom-elements.json",
     "safari": "npx playwright wk http://localhost:8000",
+    "chrome": "npx playwright cr http://localhost:8000",
     "update": "ncu -u && npm install"
+  },
+  "dependencies": {
+    "assign-gingerly": "0.0.91",
+    "be-hive": "0.1.18",
+    "charts.css": "1.2.0",
+    "el-maker": "0.0.26",
+    "imp-h": "0.0.6",
+    "mount-observer": "0.1.53"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "spa-ssi": "0.0.27",
+    "wc-info": "0.0.186"
   },
   "homepage": "https://github.com/bahrus/css-charts#readme",
   "bugs": {
@@ -37,6 +46,5 @@
     "url": "git+https://github.com/bahrus/css-charts.git"
   },
   "license": "MIT",
-  "author": "",
-  "main": "index.js"
+  "author": "Bruce B. Anderson <anderson.bruce.b@gmail.com>"
 }

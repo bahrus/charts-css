@@ -3,18 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>css-charts — pie</title>
+    <title>css-charts — dev</title>
     <!-- #include virtual="/imports.html" -->
     <script type=module>
         import 'be-hive/be-hive.js';
         import 'imp-h/imp-h.js';
         import 'el-maker/def.js';
     </script>
+    <style> css-charts { display: block; max-width: 40vw; margin: 2rem; } </style>
 </head>
 <body>
     <be-hive></be-hive>
-    <css-charts imp-h="css-charts/root.html" style="max-width:300px" hide-data show-primary-axis show-2-secondary-axes chart-type=pie>
+
+    <!-- FIRST instance: imp-h imports the template, precede registers the element -->
+    <css-charts imp-h="css-charts/root.html" chart-type=column show-labels show-primary-axis show-data-axes>
         <script type=precede data-extends=el-maker src="css-charts/el-maker.json"></script>
+        <table>
+            <caption> Progress Example </caption>
+            <thead>
+                <tr><th scope="col">Year</th><th scope="col">Progress</th></tr>
+            </thead>
+            <tbody>
+                <tr itemscope><th itemprop="key">2016</th><td><data itemprop="value" value="20"></data></td></tr>
+                <tr itemscope><th itemprop="key">2017</th><td><data itemprop="value" value="40"></data></td></tr>
+                <tr itemscope><th itemprop="key">2018</th><td><data itemprop="value" value="60"></data></td></tr>
+                <tr itemscope><th itemprop="key">2019</th><td><data itemprop="value" value="80"></data></td></tr>
+                <tr itemscope><th itemprop="key">2020</th><td><data itemprop="value" value="100"></data></td></tr>
+            </tbody>
+        </table>
+    </css-charts>
+
+    <!-- Later instances are just the bare tag -->
+    <css-charts chart-type=bar show-labels show-primary-axis show-data-axes>
         <table>
             <caption> Progress Example </caption>
             <thead>

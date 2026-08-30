@@ -1,0 +1,239 @@
+{
+    "assignFeatures": {
+        "roundabout": {
+            "customData": {
+                "raConfig": {
+                    "weakRef": {
+                        "properties": [
+                            "slotEl",
+                            "tableEl",
+                            "tbodyEl",
+                            "rowTemplate"
+                        ],
+                        "logIfCollected": "warn"
+                    },
+                    "assignOptions": {
+                        "akaMethods": {
+                            "🔍": "querySelector"
+                        },
+                        "withMethods": [
+                            "querySelector",
+                            "toggle",
+                            "setProperty"
+                        ]
+                    },
+                    "compacts": {
+                        "on_slotchange_of_slotEl_inc_slotChangeCount_by": 1
+                    },
+                    "merges": [
+                        {
+                            "ifAllOf": [
+                                "clone"
+                            ],
+                            "assign": {
+                                "?.slotEl": "?.clone?.querySelector?.slot",
+                                "?.tableEl": "?.clone?.querySelector?.table",
+                                "?.tbodyEl": "?.clone?.querySelector?.tbody",
+                                "?.rowTemplate": "?.clone?.querySelector?.#css-charts-row"
+                            }
+                        },
+                        {
+                            "ifKeyIn": [
+                                "slotEl"
+                            ],
+                            "assign": {
+                                "slotChangeCount": 1
+                            }
+                        },
+                        {
+                            "ifKeyIn": [
+                                "chartType"
+                            ],
+                            "assign": {
+                                "?.isArea ?=": [
+                                    [
+                                        "?.chartType",
+                                        "area"
+                                    ],
+                                    true,
+                                    false
+                                ],
+                                "?.isBar ?=": [
+                                    [
+                                        "?.chartType",
+                                        "bar"
+                                    ],
+                                    true,
+                                    false
+                                ],
+                                "?.isColumn ?=": [
+                                    [
+                                        "?.chartType",
+                                        "column"
+                                    ],
+                                    true,
+                                    false
+                                ],
+                                "?.isLine ?=": [
+                                    [
+                                        "?.chartType",
+                                        "line"
+                                    ],
+                                    true,
+                                    false
+                                ],
+                                "?.isPie ?=": [
+                                    [
+                                        "?.chartType",
+                                        "pie"
+                                    ],
+                                    true,
+                                    false
+                                ]
+                            }
+                        },
+                        {
+                            "ifAllOf": [
+                                "tableEl"
+                            ],
+                            "ifKeyIn": [
+                                "tableEl",
+                                "isArea",
+                                "isBar",
+                                "isColumn",
+                                "isLine",
+                                "isPie",
+                                "showLabels",
+                                "showPrimaryAxis",
+                                "showDataAxes",
+                                "hideData",
+                                "show2SecondaryAxes"
+                            ],
+                            "assign": {
+                                "?.tableEl?.classList?.toggle =*": [
+                                    [
+                                        "area",
+                                        "!!?.isArea"
+                                    ],
+                                    [
+                                        "bar",
+                                        "!!?.isBar"
+                                    ],
+                                    [
+                                        "column",
+                                        "!!?.isColumn"
+                                    ],
+                                    [
+                                        "line",
+                                        "!!?.isLine"
+                                    ],
+                                    [
+                                        "pie",
+                                        "!!?.isPie"
+                                    ],
+                                    [
+                                        "show-labels",
+                                        "!!?.showLabels"
+                                    ],
+                                    [
+                                        "show-primary-axis",
+                                        "!!?.showPrimaryAxis"
+                                    ],
+                                    [
+                                        "show-data-axes",
+                                        "!!?.showDataAxes"
+                                    ],
+                                    [
+                                        "hide-data",
+                                        "!!?.hideData"
+                                    ],
+                                    [
+                                        "show-2-secondary-axes",
+                                        "!!?.show2SecondaryAxes"
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            "ifKeyIn": [
+                                "data"
+                            ],
+                            "ifAllOf": [
+                                "tbodyEl",
+                                "rowTemplate"
+                            ],
+                            "assign": {
+                                "?.tbodyEl =>": {
+                                    "do": "builtIns.manageTemplateList",
+                                    "resolve": {
+                                        "forEach": "?.data",
+                                        "instantiate": "?.rowTemplate"
+                                    },
+                                    "fromEachItem": {
+                                        "toClone": {
+                                            "?.querySelector?.th?.textContent": "?.key",
+                                            "?.querySelector?.td?.style?.setProperty?.--size": "?.scaledVal",
+                                            "?.querySelector?.td?.style?.setProperty?.--start": "?.start",
+                                            "?.querySelector?.td?.style?.setProperty?.--end": "?.end"
+                                        },
+                                        "withOptions": {
+                                            "withMethods": [
+                                                "querySelector",
+                                                "setProperty"
+                                            ]
+                                        },
+                                        "resolve": {
+                                            "key": "?.key"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "defaultPropVals": {
+                        "chartType": "bar",
+                        "showLabels": false,
+                        "showPrimaryAxis": false,
+                        "showDataAxes": false,
+                        "hideData": false,
+                        "show2SecondaryAxes": false,
+                        "slotChangeCount": 0
+                    }
+                }
+            },
+            "withAttrs": {
+                "chartType": "chart-type",
+                "_chartType": {
+                    "valIfNull": "bar",
+                    "mapsTo": "chartType"
+                },
+                "showLabels": "show-labels",
+                "_showLabels": {
+                    "instanceOf": "Boolean",
+                    "mapsTo": "showLabels"
+                },
+                "showPrimaryAxis": "show-primary-axis",
+                "_showPrimaryAxis": {
+                    "instanceOf": "Boolean",
+                    "mapsTo": "showPrimaryAxis"
+                },
+                "showDataAxes": "show-data-axes",
+                "_showDataAxes": {
+                    "instanceOf": "Boolean",
+                    "mapsTo": "showDataAxes"
+                },
+                "hideData": "hide-data",
+                "_hideData": {
+                    "instanceOf": "Boolean",
+                    "mapsTo": "hideData"
+                },
+                "show2SecondaryAxes": "show-2-secondary-axes",
+                "_show2SecondaryAxes": {
+                    "instanceOf": "Boolean",
+                    "mapsTo": "show2SecondaryAxes"
+                }
+            }
+        },
+        "templateMaker": {}
+    }
+}
