@@ -197,3 +197,20 @@ The `{sa, o}` → multi‑invoke translation is clean and worth adding to
 // raConfig.assignOptions.withMethods must include 'toggle'
 ```
 
+## Bruce's Response I
+
+To address Gap 1, I've started adding a new custom element feature - h2o-table, which stands for HTML 2 Object Table. I created the [H2OTable.js](../el-maker/h2o-table/H2OTable.js) and a [type file](../el-maker/h2o-table/types/h2o-table/types.d.ts) file.  Can you please fill out the types file, and edit H2OTable.js so as much typing is applied, and the existing code is typed correctly?
+
+### AI Response II
+
+Done — `tsc --checkJs --strict` is clean for `H2OTable.js`, `extractData.js`, and the types file.
+
+- **[`types/h2o-table/types.d.ts`](../el-maker/h2o-table/types/h2o-table/types.d.ts)** — re-exports `FeatureSpawnContext` from `../assign-gingerly/types` (same as `id-referencer`); adds `DataRecord` (`Record<string, any>` — one scraped row), `IH2OTable` (`readonly data: DataRecord[]`), `H2OTableProps`, `AllProps` (`hostRef` + `itemprops`), `AP` / `PAP`. `CustomData` kept as `{ itemprops: string[] }`.
+- **[`H2OTable.js`](../el-maker/h2o-table/H2OTable.js)** — added the `/** @import … */` line (this is what fixed the `Cannot find name 'FeatureSpawnContext' / 'H2OTableProps'` errors); `@implements {IH2OTable}`; typed `hostElement` (`@returns {HTMLElement}` + `@throws {number} 404`), `data` (`@returns {DataRecord[]}`), and `#itemprops`. Constructor now reads config defensively — `const customData = ctx?.injection?.customData ?? {}` typed as `CustomData`, `this.#itemprops = customData.itemprops ?? []` — matching the `IdRefs` idiom (the old `const {itemprops} = customData` threw when `customData` was absent). `initVals` renamed `_initVals` (feature has no writable state; silences unused-param).
+- **[`extractData.js`](../el-maker/h2o-table/extractData.js)** — typed `@returns {DataRecord[]}`, annotated the `data` / `item` locals, and cast the `.enh` access (`assign-gingerly/object-extension.js` adds `.enh` at runtime but publishes no `Element` augmentation).
+
+**Still open (not in scope of this ask, flagging for wiring):**
+
+1. `h2o-table` only does the *HTML → objects* half. The legacy `extractData` also computed `scaledVal` / `start` / `end` per `chartType` (`Math.max`, cumulative sums). `css-charts` still needs that scaling somewhere — a second feature, a `calc()`-based charts.css approach, or a small host method.
+2. `css-charts`'s [`el-maker.mjs`](../el-maker.mjs) isn't wired to the feature yet — needs `assignFeatures.h2oTable: { customData: { itemprops: ['key','value'] } }` plus a merge/positraction that pushes `el.h2oTable.data` (recomputed on `slotChangeCount`) into the `data` prop that merge #4 consumes.
+3. `H2OTable` reads on demand (`get data()` re-scrapes) but emits no change signal — roundabout needs something to react to. Either the host re-pulls on `slotchange`, or the feature should fire a propagator event.

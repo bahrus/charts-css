@@ -206,6 +206,12 @@ const features = {
             withAttrs,
         },
         templateMaker: {},
+        h2oTable: {
+            customData: {
+                itemprops: ['key', 'value']
+            }
+        }
+
     },
 };
 
