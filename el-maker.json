@@ -20,7 +20,10 @@
                             "querySelector",
                             "toggle",
                             "setProperty"
-                        ]
+                        ],
+                        "handlers": {
+                            "manageTemplateList": "assign-gingerly/handlers/manageTemplateList.js"
+                        }
                     },
                     "compacts": {
                         "on_slotchange_of_slotEl_inc_slotChangeCount_by": 1
@@ -156,6 +159,18 @@
                         },
                         {
                             "ifKeyIn": [
+                                "slotChangeCount",
+                                "chartType"
+                            ],
+                            "ifAllOf": [
+                                "slotEl"
+                            ],
+                            "assign": {
+                                "data": "?.h2oTable?.data"
+                            }
+                        },
+                        {
+                            "ifKeyIn": [
                                 "data"
                             ],
                             "ifAllOf": [
@@ -164,7 +179,7 @@
                             ],
                             "assign": {
                                 "?.tbodyEl =>": {
-                                    "do": "builtIns.manageTemplateList",
+                                    "do": "manageTemplateList",
                                     "resolve": {
                                         "forEach": "?.data",
                                         "instantiate": "?.rowTemplate"
@@ -172,14 +187,20 @@
                                     "fromEachItem": {
                                         "toClone": {
                                             "?.querySelector?.th?.textContent": "?.key",
-                                            "?.querySelector?.td?.style?.setProperty?.--size": "?.scaledVal",
-                                            "?.querySelector?.td?.style?.setProperty?.--start": "?.start",
-                                            "?.querySelector?.td?.style?.setProperty?.--end": "?.end"
+                                            "?.querySelector?.td?.style?.cssText =&": {
+                                                "join": [
+                                                    "--size:",
+                                                    "?.scaledVal",
+                                                    ";--start:",
+                                                    "?.start",
+                                                    ";--end:",
+                                                    "?.end"
+                                                ]
+                                            }
                                         },
                                         "withOptions": {
                                             "withMethods": [
-                                                "querySelector",
-                                                "setProperty"
+                                                "querySelector"
                                             ]
                                         },
                                         "resolve": {
@@ -236,6 +257,7 @@
         },
         "templateMaker": {},
         "h2oTable": {
+            "spawn": "css-charts/H2OTable.js",
             "customData": {
                 "itemprops": [
                     "key",

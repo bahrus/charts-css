@@ -1,4 +1,5 @@
 import {SimpleWCInfo} from './types/wc-info/SimpleWCInfo';
+import {IH2OTable} from './el-maker/h2o-table/types/h2o-table/types';
 
 /**
  * The public, author-facing API of <css-charts>.
@@ -37,10 +38,19 @@ export interface AllProps extends EndUserProps {
     tbodyEl: HTMLTableSectionElement,
     /** The <template id=css-charts-row> cloned once per data item. */
     rowTemplate: HTMLTemplateElement,
-    /** Bumped on every `slotchange`; gates `extractData`. */
+    /** Bumped on every `slotchange`; re-triggers the pull of `h2oTable.data`. */
     slotChangeCount: number,
-    /** Rows extracted from the slotted <table>(s), with per-chart-type scaling applied. */
+    /**
+     * Rows scraped from the slotted `<table>`(s) by the `h2oTable` feature, with
+     * the charts.css geometry columns (`scaledVal` / `start` / `end`) added per
+     * `chartType`. Pulled from `h2oTable.data` by a merge; rendered by merge #4.
+     */
     data: Array<DataItem>,
+    /**
+     * The `h2oTable` custom-element feature instance (`CSSChartsH2OTable`).
+     * Its `data` getter re-scrapes + re-scales on every read.
+     */
+    h2oTable: IH2OTable,
     isArea: boolean,
     isBar: boolean,
     isColumn: boolean,
@@ -65,16 +75,12 @@ export type ProPAP = Promise<PAP>;
 
 export interface RuntimeProps extends AllProps, HTMLElement {}
 
-export interface Actions {
-    /**
-     * GAP (see Chats/Conversion.md): imperative data extraction + scaling.
-     * Reads `slotEl.assignedElements()`, pulls `{key, value}` rows out of each
-     * <table>, then computes `scaledVal` / `start` / `end` per `chartType`.
-     * Not expressible as an assign-gingerly merge — needs a host method or a
-     * dedicated el-maker feature.
-     */
-    extractData(self: AllProps): ProPAP;
-}
+/**
+ * No roundabout action methods — every legacy action is now either a declarative
+ * merge (`classify`) or the `h2oTable` feature (`extractData`, via the
+ * `CSSChartsH2OTable` subclass's `massageData` override).
+ */
+export interface Actions {}
 
 export abstract class CSSCharts implements SimpleWCInfo {
     src: './el-maker.json';

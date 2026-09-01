@@ -32,6 +32,7 @@ const props = {
     rowTemplate: 'rowTemplate',
     slotChangeCount: 'slotChangeCount',
     data: 'data',
+    h2oTable: 'h2oTable',
     isArea: 'isArea',
     isBar: 'isBar',
     isColumn: 'isColumn',
@@ -109,16 +110,33 @@ const merges = [
         },
     },
 
-    // 4. GAP (see Chats/Conversion.md #4): render one <tr> per `data` item into
-    //    <tbody> and stamp the charts.css CSS custom properties on each <td>.
-    //    Wired best-effort via builtIns.manageTemplateList; never fires until
-    //    something populates `data` (see GAP #1 — `extractData`).
+    // 3b. Pull the scraped + scaled rows out of the `h2oTable` feature into the
+    //     `data` prop. `h2oTable.data` re-scrapes and re-runs CSSChartsH2OTable's
+    //     `massageData()` on every read, so anything that changes the source or
+    //     the scaling (`slotchange` bumps `slotChangeCount`; `chartType` changes
+    //     the geometry) has to re-trigger this pull. Replaces the legacy
+    //     `extractData` action.
+    {
+        ifKeyIn: [props.slotChangeCount, props.chartType],
+        ifAllOf: [props.slotEl],
+        assign: {
+            [props.data]: '?.h2oTable?.data',
+        },
+    },
+
+    // 4. Render one <tr> per `data` item into <tbody> and stamp the charts.css
+    //    CSS custom properties on each <td>, via manageTemplateList.
+    //    NB: `do: 'builtIns.manageTemplateList'` is broken in assign-gingerly@0.0.91
+    //    (relative path in processHandlerCommands' BUILT_IN_MAP is re-based from
+    //    utils/ by findClassPrototypeInPath → 404 on utils/handlers/…). Work
+    //    around it by registering the handler by bare specifier in
+    //    assignOptions.handlers and referencing that key here. See Conversion.md GAP 2.
     {
         ifKeyIn: [props.data],
         ifAllOf: [props.tbodyEl, props.rowTemplate],
         assign: {
             '?.tbodyEl =>': {
-                do: 'builtIns.manageTemplateList',
+                do: 'manageTemplateList',
                 resolve: {
                     forEach: '?.data',
                     instantiate: '?.rowTemplate',
@@ -126,13 +144,15 @@ const merges = [
                 fromEachItem: {
                     toClone: {
                         '?.querySelector?.th?.textContent': '?.key',
-                        // GAP: does the path evaluator support style.setProperty
-                        // for CSS custom props? Legacy used trans-render `ss: '--size'`.
-                        '?.querySelector?.td?.style?.setProperty?.--size': '?.scaledVal',
-                        '?.querySelector?.td?.style?.setProperty?.--start': '?.start',
-                        '?.querySelector?.td?.style?.setProperty?.--end': '?.end',
+                        // CSS custom properties can't be set via a `style.setProperty`
+                        // path (the RHS value isn't threaded in as arg 2 — it throws
+                        // "2 arguments required"). Write the whole declaration block
+                        // through `style.cssText` with the `=&` join op instead.
+                        '?.querySelector?.td?.style?.cssText =&': {
+                            join: ['--size:', '?.scaledVal', ';--start:', '?.start', ';--end:', '?.end'],
+                        },
                     },
-                    withOptions: { withMethods: ['querySelector', 'setProperty'] },
+                    withOptions: { withMethods: ['querySelector'] },
                     resolve: { key: '?.key' },
                 },
             },
@@ -153,23 +173,20 @@ const raConfig = {
             '🔍': m['🔍'],
         },
         withMethods: ['querySelector', 'toggle', 'setProperty'],
+        // See merge #4 — bare-specifier route around the broken `builtIns.` loader.
+        handlers: {
+            manageTemplateList: 'assign-gingerly/handlers/manageTemplateList.js',
+        },
     },
     compacts: {
         // Replaces the legacy slot xform: bump the counter on every slotchange
         // so data extraction can re-run.
         on_slotchange_of_slotEl_inc_slotChangeCount_by: 1,
     },
-    // GAP #1 — `extractData` is imperative (Math.max / reduce / cumulative sum /
-    // per-chart-type branching over slotted <table> DOM). There is no host
-    // method to bind it to in the code-free model. Left here, commented, as the
-    // spec of what still needs a home (a dedicated el-maker feature, most likely):
-    //
-    // actions: {
-    //     extractData: {
-    //         ifAllOf: ['slotChangeCount', 'slotEl'],
-    //         ifAtLeastOneOf: ['isArea', 'isBar', 'isColumn', 'isLine', 'isPie'],
-    //     },
-    // },
+    // The legacy `extractData` action (Math.max / cumulative sums / per-chart-type
+    // branching over the slotted <table>) now lives in the `h2oTable` feature —
+    // generic scraping in el-maker/h2o-table, css-charts' scaling in
+    // ./H2OTable.js (CSSChartsH2OTable#massageData). Merge 3b pulls its output.
     merges: smoothOver(merges),
     defaultPropVals: {
         [props.chartType]: 'bar',
@@ -206,12 +223,17 @@ const features = {
             withAttrs,
         },
         templateMaker: {},
+        // Overrides el-maker's generic h2oTable fallbackSpawn with the
+        // package-local subclass that adds charts.css scaling (./H2OTable.js →
+        // CSSChartsH2OTable#massageData). `spawn` is a string so el-maker.json
+        // stays JSON-serializable; it resolves through the page's import map
+        // (`"css-charts/": "/"`).
         h2oTable: {
+            spawn: 'css-charts/H2OTable.js',
             customData: {
-                itemprops: ['key', 'value']
-            }
-        }
-
+                itemprops: ['key', 'value'],
+            },
+        },
     },
 };
 
