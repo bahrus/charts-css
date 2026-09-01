@@ -1,12 +1,12 @@
 // @ts-check
 
-/** @import {DataRecord} from './el-maker/h2o-table/types/h2o-table/types' */
+/** @import {DataRecord} from './types/h2o-table/types' */
 /** @import {DataItem, RuntimeProps} from './types' */
 
 // Local dev: the generic base lives in the checked-out `el-maker/` clone, mapped
 // by imports.html (`"el-maker/": "/el-maker/"`). Once h2o-table is published this
 // becomes a bare specifier, e.g. `import { H2OTable } from 'h2o-table/H2OTable.js'`.
-import { H2OTable } from './el-maker/h2o-table/H2OTable.js';
+import { H2OTable } from 'el-maker/h2o-table/H2OTable.js';
 
 /**
  * `css-charts`' flavour of the `h2o-table` feature. The generic base scrapes
