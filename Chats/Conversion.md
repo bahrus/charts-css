@@ -354,3 +354,27 @@ Verified numbers match legacy exactly: bar/column `scaledVal = value/max` (0.2�
 - **Submodule edits.** `types/el-maker/types.d.ts`, `types/assign-gingerly/types.d.ts`, and everything under `el-maker/h2o-table/` are modifications inside submodules — they'll need committing in their own repos.
 - charts.css inlining (GAP 6) and `package.json` entry points (GAP 7) still open — cosmetic, your call.
 
+## Bruce's Response IV
+
+Excellent work!
+
+Can you update [New Custom Element](/types/NewCustomElement.md) and/or [New HTML First Custom Element](/types/NewHTMLFirstCustomElement.md) with:
+
+1.  A reference to this project
+2.  Step 7 of [New HTML First Custom Element](/types/NewHTMLFirstCustomElement.md), can you document how to set css classes based on a truthy or falsy property?
+3.  Somewhere describe the "penciling in" approach we followed?
+
+### Claude's Implementation Notes
+
+Done — both instruction files updated (in the types submodule). Runtime re-verified against el-maker@0.0.28: all demos still render 5 rows, correct geometry, no errors.
+
+NewHTMLFirstCustomElement.md
+1. Reference Implementations — added a css-charts entry noting what it demonstrates (multi-invoke class toggling, manageTemplateList, the penciled-in CSSChartsH2OTable), with links into the two new Step-7 sections and a pointer to Chats/Conversion.md.
+
+2. Step 7 → "How can I toggle a CSS class from a boolean property?" — the {sa,o} → =* translation, matching the style of the existing "toLocaleString" scenario: goal, how '?.el?.classList?.toggle =*': [[class, '!!?.prop'], …] works, the !! idempotence, withMethods: ['toggle'], the capture-then-toggle merge pair, and the note that there's no $/set DX token for =* yet so you write plain strings.
+
+3. Step 7 → "How do I give a shared feature element-specific logic? (penciling in)" — the full pattern: package-root subclass overriding a public hook (massageData), spawn: 'my-element/MyH2OTable.js' in el-maker.mjs, and why it works (injected spawn beats fallbackSpawn; string → import-map import() → default export; base must expose hooks/state as public not #private; pull output into roundabout with a gated merge). Closes by noting the logic can later be promoted into the feature or published standalone.
+
+NewCustomElement.md
+Added an "Injecting a custom or package-local feature" subsection under "What ElementMaker Provides" — brief: spawn accepts a class / async loader / import-path string, a string overrides fallbackSpawn and keeps el-maker.json JSON, use it for non-catalog features or catalog-feature subclasses — cross-linked to the HTMLFirst "penciling in" section and the css-charts example.
+
