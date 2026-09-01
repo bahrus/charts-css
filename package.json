@@ -1,7 +1,7 @@
 {
   "name": "css-charts",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Custom Element wrapper around charts.css",
   "main": "el-maker.json",
   "module": "el-maker.json",
